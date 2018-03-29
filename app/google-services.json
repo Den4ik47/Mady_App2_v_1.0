@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "31104524710",
+    "firebase_url": "https://mady-aecfe.firebaseio.com",
+    "project_id": "mady-aecfe",
+    "storage_bucket": "mady-aecfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31104524710:android:44d87bb014bfe34b",
+        "android_client_info": {
+          "package_name": "com.example.a11984.mady_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "31104524710-d2kmuin4fo118c8a2g0jk4i8f3a9fu04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.a11984.mady_app",
+            "certificate_hash": "4e5e2f45c200f718e64fe83ceb720a42e8f80481"
+          }
+        },
+        {
+          "client_id": "31104524710-243ol8dnh1rpojl9s87m9msuvssg2r12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqhhtB7FEbswAE5DE7eYQMQIywy6GFL9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31104524710-243ol8dnh1rpojl9s87m9msuvssg2r12.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
