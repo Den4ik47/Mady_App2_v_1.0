@@ -8,43 +8,42 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Main_Activity extends AppCompatActivity
+public class Selecting extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    GlobalClass globalClass;
-    private static final String TAG = "Main_Activity";
+    private static final String TAG = "Selecting";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tender_);
+        setContentView(R.layout.activity_selecting);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDatabase= FirebaseDatabase.getInstance().getReference();
-      FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase.child("users").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                TextView name = findViewById(R.id.Name);
-                TextView email = findViewById(R.id.Email);
-                name.setText(user.username);
-                email.setText(user.email);
-           GlobalClass.name=user.username;
-           GlobalClass.email=user.email;
-            }
+        final TextView name= findViewById(R.id.User_name);
+        TextView details= findViewById(R.id.Details);
+        name.setText(GlobalClass.data);
+
+        mDatabase.child("Tenders").child(GlobalClass.data1).child(GlobalClass.data).addListenerForSingleValueEvent(new ValueEventListener() {
+           public void onDataChange(DataSnapshot dataSnapshot) {
+                Tender tender = dataSnapshot.getValue(Tender.class);
+                TextView details= findViewById(R.id.Details);
+                TextView title= findViewById(R.id.Title);
+               title.setText(tender.type);
+                details.setText(tender.details);
+               GlobalClass.data2=tender.Name;
+           }
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -52,6 +51,14 @@ public class Main_Activity extends AppCompatActivity
                 Log.e(TAG, "onCancelled: Failed to read user!");
             }
         });
+        TextView msg= findViewById(R.id.Msg_click);
+        msg.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(Selecting.this, Message.class));
+            }
+        });
+
+        details.setMovementMethod(new ScrollingMovementMethod());
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,9 +82,10 @@ public class Main_Activity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.tender_, menu);
+        getMenuInflater().inflate(R.menu.selecting, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -85,8 +93,6 @@ public class Main_Activity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
 
         return super.onOptionsItemSelected(item);
     }
@@ -99,26 +105,26 @@ public class Main_Activity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (id == R.id.nav_create) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, Create_Activity.class));
+            startActivity(new Intent(Selecting.this, Create_Activity.class));
         } else if (id == R.id.nav_search) {
             closeOptionsMenu();
             startActivity(
-                    new Intent(Main_Activity.this, Search_Tender.class));
+                    new Intent(Selecting.this, Search_Tender.class));
         } else if (id == R.id.nav_complete) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, Complete_Tenders.class));
+            startActivity(new Intent(Selecting.this, Complete_Tenders.class));
         } else if (id == R.id.nav_incopmlete) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, Incomplete_Tenders.class));
+            startActivity(new Intent(Selecting.this, Incomplete_Tenders.class));
         } else if (id == R.id.nav_calendar) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, Calendar.class));
+            startActivity(new Intent(Selecting.this, Calendar.class));
         } else if (id == R.id.nav_message) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, Select_Recipient.class));
+            startActivity(new Intent(Selecting.this, Select_Recipient.class));
         }else if (id == R.id.nav_settings) {
             closeOptionsMenu();
-            startActivity(new Intent(Main_Activity.this, SettingsActivity.class));
+            startActivity(new Intent(Selecting.this, SettingsActivity.class));
         }
 
         return true;

@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +29,6 @@ public class Registration_Activity extends AppCompatActivity {
     private EditText mPasswordField;
     private EditText mName;
     private Button Reg;
-    private EditText mAge;
     private DatabaseReference mDatabase;
     private ProgressBar progressBar;
     private EditText mFirm;
@@ -40,8 +38,8 @@ public class Registration_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration_);
-        Reg=(Button) findViewById(R.id.Reg_click);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        Reg= findViewById(R.id.Reg_click);
+        progressBar = findViewById(R.id.progressBar);
         mName = findViewById(R.id.signup_input_name);
         mEmailFied = findViewById(R.id.signup_input_email);
         mPasswordField = findViewById(R.id.signup_input_password);
@@ -148,15 +146,8 @@ public class Registration_Activity extends AppCompatActivity {
         } else {
             mName.setError(null);
         }
-        String Age = mAge.getText().toString();
-        if (TextUtils.isEmpty(Age)) {
-            mAge.setError("Required.");
-            valid = false;
-        } else {
-            mAge.setError(null);
-        }
         String Firm = mFirm.getText().toString();
-        if (TextUtils.isEmpty(Age)) {
+        if (TextUtils.isEmpty(Firm)) {
             mFirm.setError("Required.");
             valid = false;
         } else {
@@ -181,10 +172,6 @@ public class Registration_Activity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Password must be at least 8 characters", Toast.LENGTH_SHORT).show();
             return false;
         }
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        format.applyPattern("dd.MM.yyyy");
-if(Pattern.matches("\\\\d{4}-[01]\\\\d-[0-3]\\\\d",Age)){Toast.makeText(getApplicationContext(), "Required Date", Toast.LENGTH_SHORT).show();
-    return false;}
         if (mFirm.length()<2) {
             Toast.makeText(getApplicationContext(), "Please described Name of Firm", Toast.LENGTH_SHORT).show();
             return false;
